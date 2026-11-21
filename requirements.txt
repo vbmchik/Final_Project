@@ -3,4 +3,5 @@ SQLAlchemy>=2.0.36
 psycopg2-binary>=2.9.11
 jupyterlab>=4.0
 ipykernel>=6.29
-scipy>=1.14.0
+# Includes scipy.stats; Pearson result attributes need SciPy 1.9 or later.
+scipy>=1.9.0

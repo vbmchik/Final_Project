@@ -9,18 +9,8 @@ ORDER BY vehicle_count DESC;
 
 -- Query 2: Electric vehicle registrations by quarter.
 SELECT
-    EXTRACT(
-        YEAR
-        FROM TO_DATE(
-                v.moed_aliya_lakvish, 'YYYY-MM'
-            )
-    )::int AS registration_year,
-    EXTRACT(
-        QUARTER
-        FROM TO_DATE(
-                v.moed_aliya_lakvish, 'YYYY-MM'
-            )
-    )::int AS registration_quarter,
+    EXTRACT(YEAR FROM v.first_registration_date)::INT AS registration_year,
+    EXTRACT(QUARTER FROM v.first_registration_date)::INT AS registration_quarter,
     COUNT(*) AS ev_count
 FROM public.vehicle_registry AS v
     JOIN public.lookup_fuel AS f ON v.sug_delek_nm = f.sug_delek_nm
@@ -35,12 +25,7 @@ ORDER BY 1, 2;
 WITH
     yearly AS (
         SELECT
-            EXTRACT(
-                YEAR
-                FROM TO_DATE(
-                        v.moed_aliya_lakvish, 'YYYY-MM'
-                    )
-            )::int AS registration_year,
+            EXTRACT(YEAR FROM v.first_registration_date)::INT AS registration_year,
             COUNT(*) AS total_vehicles,
             COUNT(*) FILTER (
                 WHERE
@@ -49,7 +34,7 @@ WITH
         FROM public.vehicle_registry AS v
             LEFT JOIN public.lookup_fuel AS f ON v.sug_delek_nm = f.sug_delek_nm
         WHERE
-            v.moed_aliya_lakvish IS NOT NULL
+            v.first_registration_date IS NOT NULL
         GROUP BY
             1
     )
@@ -100,18 +85,8 @@ LIMIT 10;
 WITH
     quarterly AS (
         SELECT
-            EXTRACT(
-                YEAR
-                FROM TO_DATE(
-                        v.moed_aliya_lakvish, 'YYYY-MM'
-                    )
-            )::int AS registration_year,
-            EXTRACT(
-                QUARTER
-                FROM TO_DATE(
-                        v.moed_aliya_lakvish, 'YYYY-MM'
-                    )
-            )::int AS registration_quarter,
+            EXTRACT(YEAR FROM v.first_registration_date)::INT AS registration_year,
+            EXTRACT(QUARTER FROM v.first_registration_date)::INT AS registration_quarter,
             m.maker_en,
             COUNT(*) AS electric_vehicles
         FROM public.vehicle_registry AS v
@@ -166,7 +141,7 @@ SELECT
     TO_CHAR(
         v.first_registration_date,
         'YYYY-"Q"Q'
-    ) AS registration_quarter, 
+    ) AS registration_quarter,
     COUNT(*) AS total_vehicles,
     COUNT(*) FILTER (
         WHERE
@@ -182,7 +157,7 @@ SELECT
 FROM public.vehicle_registry AS v
     LEFT JOIN public.lookup_fuel AS f ON v.sug_delek_nm = f.sug_delek_nm
 WHERE
-    v.moed_aliya_lakvish IS NOT NULL
+    v.first_registration_date IS NOT NULL
 GROUP BY
     1
 ORDER BY 1;
