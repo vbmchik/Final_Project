@@ -8,6 +8,7 @@
 !/current_data/ 
 !/stat_tests
 !/*.sql
+!/*.xlsx
 # Ignore system files and notebook checkpoints inside allowed folders.
 **/.DS_Store
 **/.ipynb_checkpoints/
