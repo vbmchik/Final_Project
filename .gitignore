@@ -6,6 +6,7 @@
 !/VoltWay_Cleaning.ipynb
 !/data.zip
 !/current_data/ 
+!/stat_tests
 !/*.sql
 # Ignore system files and notebook checkpoints inside allowed folders.
 **/.DS_Store

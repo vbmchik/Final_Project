@@ -1,0 +1,3 @@
+﻿test,method,n,statistic,p_value,p_display,degrees_of_freedom,cramers_v,alpha,reject_h0
+Owner type and EV ownership,Chi-square,861136,34747.14079508712,0.0,< 0.001,4,0.2008739706565887,0.05,True
+Private EVs (2026) and charging points (2025) by district,Pearson correlation,7,0.9021797397119711,0.005449781929068562,0.00544978,5,,0.05,True
