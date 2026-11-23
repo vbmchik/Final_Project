@@ -279,3 +279,117 @@ WHERE
 GROUP BY
     1
 ORDER BY 1;
+
+-- Query 12 (Question 1): Change in EV counts by quarter.
+-- QoQ compares with the last quarter. YoY compares with the same quarter last year.
+-- The data was downloaded on 8 Nov 2026. The last full quarter is 2026Q3.
+-- These are counts in our vehicle sample, not charging use or total market sales.
+-- Missing or zero earlier counts give NULL.
+WITH
+    quarterly AS (
+        SELECT
+            DATE_TRUNC('quarter', v.first_registration_date)::DATE AS quarter_start,
+            COUNT(*) FILTER (
+                WHERE
+                    v.fuel_en = 'Electric'
+            ) AS electric_vehicles
+        FROM public.vehicle_registry AS v
+        WHERE
+            v.first_registration_date < DATE_TRUNC('quarter', DATE '2026-11-08')
+        GROUP BY
+            1
+    )
+SELECT
+    EXTRACT(YEAR FROM q.quarter_start)::INT AS registration_year,
+    EXTRACT(QUARTER FROM q.quarter_start)::INT AS registration_quarter,
+    q.electric_vehicles,
+    previous_quarter.electric_vehicles AS previous_quarter_ev,
+    previous_year.electric_vehicles AS previous_year_ev,
+    ROUND(
+        100.0 * (q.electric_vehicles - previous_quarter.electric_vehicles)
+        / NULLIF(previous_quarter.electric_vehicles, 0),
+        2
+    ) AS qoq_ev_growth_pct,
+    ROUND(
+        100.0 * (q.electric_vehicles - previous_year.electric_vehicles)
+        / NULLIF(previous_year.electric_vehicles, 0),
+        2
+    ) AS yoy_ev_growth_pct
+FROM quarterly AS q
+    LEFT JOIN quarterly AS previous_quarter
+        ON previous_quarter.quarter_start = q.quarter_start - INTERVAL '3 months'
+    LEFT JOIN quarterly AS previous_year
+        ON previous_year.quarter_start = q.quarter_start - INTERVAL '1 year'
+ORDER BY
+    q.quarter_start;
+
+-- Query 13 (Question 2): EV share within each brand in our sample.
+-- Show brands with at least 100 vehicles. This is a simple size filter.
+-- Count vehicles, not sales. Group the whole brand, not each production country.
+SELECT
+    COALESCE(v.maker_en, 'Unknown') AS maker_en,
+    COUNT(*) AS total_vehicles,
+    COUNT(*) FILTER (
+        WHERE
+            v.fuel_en = 'Electric'
+    ) AS electric_vehicles,
+    ROUND(
+        100.0 * COUNT(*) FILTER (
+            WHERE
+                v.fuel_en = 'Electric'
+        ) / NULLIF(COUNT(*), 0),
+        2
+    ) AS brand_ev_share_pct
+FROM public.vehicle_registry AS v
+GROUP BY
+    1
+HAVING
+    COUNT(*) >= 100
+ORDER BY
+    brand_ev_share_pct DESC,
+    total_vehicles DESC,
+    maker_en;
+
+-- Query 14 (Question 3): EV owners in each subdistrict.
+-- Shares use all EVs in the same subdistrict. Keep missing places as Unknown.
+-- Owner type does not show where people charge. Use Query 10 for fast charging points.
+WITH
+    ownership_counts AS (
+        SELECT
+            COALESCE(d.district_en, 'Unknown') AS district_en,
+            COALESCE(d.subdistrict_en, 'Unknown') AS subdistrict_en,
+            COALESCE(d.ownership_en, 'Unknown') AS ownership_en,
+            SUM(d.car_num) AS electric_vehicles
+        FROM public.ev_by_district AS d
+        GROUP BY
+            1,
+            2,
+            3
+    ),
+    subdistrict_totals AS (
+        SELECT
+            *,
+            SUM(electric_vehicles) OVER (
+                PARTITION BY
+                    district_en,
+                    subdistrict_en
+            ) AS subdistrict_ev
+        FROM ownership_counts
+    )
+SELECT
+    district_en,
+    subdistrict_en,
+    ownership_en,
+    electric_vehicles,
+    subdistrict_ev,
+    ROUND(
+        100.0 * electric_vehicles / NULLIF(subdistrict_ev, 0),
+        2
+    ) AS ownership_share_pct
+FROM subdistrict_totals
+ORDER BY
+    subdistrict_ev DESC,
+    district_en,
+    subdistrict_en,
+    electric_vehicles DESC,
+    ownership_en;
