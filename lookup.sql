@@ -3,13 +3,15 @@
 --                   ev_by_district (90) + 7 lookup tables; CSV copies in clean_data/.
 --   Sections 37-39: charging_districts (7), charging_cities (143) from current_data/.
 
+-- English fuel, maker and production-country labels are already added during cleaning.
+-- Read them directly from vehicle_registry; no lookup joins are needed here.
+
 -- Query 1 (Question 1): Vehicle counts by fuel type.
-SELECT v.sug_delek_nm AS fuel_he, f.fuel_en, COUNT(*) AS vehicle_count
+SELECT v.sug_delek_nm AS fuel_he, v.fuel_en, COUNT(*) AS vehicle_count
 FROM public.vehicle_registry AS v
-    LEFT JOIN public.lookup_fuel AS f ON v.sug_delek_nm = f.sug_delek_nm
 GROUP BY
     v.sug_delek_nm,
-    f.fuel_en
+    v.fuel_en
 ORDER BY vehicle_count DESC;
 
 -- Query 2 (Question 1): Electric vehicle registrations by quarter (full quarters only).
@@ -18,9 +20,8 @@ SELECT
     EXTRACT(QUARTER FROM v.first_registration_date)::INT AS registration_quarter,
     COUNT(*) AS ev_count
 FROM public.vehicle_registry AS v
-    JOIN public.lookup_fuel AS f ON v.sug_delek_nm = f.sug_delek_nm
 WHERE
-    f.fuel_en = 'Electric'
+    v.fuel_en = 'Electric'
     AND v.first_registration_date < (SELECT DATE_TRUNC('quarter', MAX(mivchan_acharon_dt) + INTERVAL '1 day') FROM public.vehicle_registry)
 GROUP BY
     1,
@@ -35,10 +36,9 @@ WITH
             COUNT(*) AS total_vehicles,
             COUNT(*) FILTER (
                 WHERE
-                    f.fuel_en = 'Electric'
+                    v.fuel_en = 'Electric'
             ) AS electric_vehicles
         FROM public.vehicle_registry AS v
-            LEFT JOIN public.lookup_fuel AS f ON v.sug_delek_nm = f.sug_delek_nm
         WHERE
             v.first_registration_date IS NOT NULL
         GROUP BY
@@ -72,7 +72,7 @@ ORDER BY registration_year;
 
 -- Query 4 (Question 2): Top 10 EV brands and their market shares.
 SELECT
-    m.maker_en,
+    v.maker_en,
     COUNT(*) AS electric_vehicles,
     ROUND(
         100.0 * COUNT(*) / SUM(COUNT(*)) OVER (),
@@ -82,12 +82,10 @@ SELECT
         ORDER BY COUNT(*) DESC
     ) AS brand_rank
 FROM public.vehicle_registry AS v
-    JOIN public.lookup_fuel AS f ON v.sug_delek_nm = f.sug_delek_nm
-    LEFT JOIN public.lookup_makers AS m ON v.tozeret_cd = m.tozeret_cd
 WHERE
-    f.fuel_en = 'Electric'
+    v.fuel_en = 'Electric'
 GROUP BY
-    m.maker_en
+    v.maker_en
 ORDER BY electric_vehicles DESC
 LIMIT 10;
 
@@ -97,13 +95,11 @@ WITH
         SELECT
             EXTRACT(YEAR FROM v.first_registration_date)::INT AS registration_year,
             EXTRACT(QUARTER FROM v.first_registration_date)::INT AS registration_quarter,
-            m.maker_en,
+            v.maker_en,
             COUNT(*) AS electric_vehicles
         FROM public.vehicle_registry AS v
-            JOIN public.lookup_fuel AS f ON v.sug_delek_nm = f.sug_delek_nm
-            LEFT JOIN public.lookup_makers AS m ON v.tozeret_cd = m.tozeret_cd
         WHERE
-            f.fuel_en = 'Electric'
+            v.fuel_en = 'Electric'
             AND v.first_registration_date < (SELECT DATE_TRUNC('quarter', MAX(mivchan_acharon_dt) + INTERVAL '1 day') FROM public.vehicle_registry)
         GROUP BY
             1,
@@ -156,17 +152,16 @@ SELECT
     COUNT(*) AS total_vehicles,
     COUNT(*) FILTER (
         WHERE
-            f.fuel_en = 'Electric'
+            v.fuel_en = 'Electric'
     ) AS electric_vehicles,
     ROUND(
         100.0 * COUNT(*) FILTER (
             WHERE
-                f.fuel_en = 'Electric'
+                v.fuel_en = 'Electric'
         ) / COUNT(*),
         2
     ) AS electric_share_pct
 FROM public.vehicle_registry AS v
-    LEFT JOIN public.lookup_fuel AS f ON v.sug_delek_nm = f.sug_delek_nm
 WHERE
     v.first_registration_date IS NOT NULL
     AND v.first_registration_date < (SELECT DATE_TRUNC('quarter', MAX(mivchan_acharon_dt) + INTERVAL '1 day') FROM public.vehicle_registry)
@@ -176,7 +171,7 @@ ORDER BY 1;
 
 -- Query 7 (Question 2): Top 10 countries that produce EVs.
 SELECT
-    m.production_country_en,
+    v.production_country_en,
     COUNT(*) AS electric_vehicles,
     ROUND(
         100.0 * COUNT(*) / SUM(COUNT(*)) OVER (),
@@ -186,12 +181,10 @@ SELECT
         ORDER BY COUNT(*) DESC
     ) AS country_rank
 FROM public.vehicle_registry AS v
-    JOIN public.lookup_fuel AS f ON v.sug_delek_nm = f.sug_delek_nm
-    LEFT JOIN public.lookup_makers AS m ON v.tozeret_cd = m.tozeret_cd
 WHERE
-    f.fuel_en = 'Electric'
+    v.fuel_en = 'Electric'
 GROUP BY
-    m.production_country_en
+    v.production_country_en
 ORDER BY electric_vehicles DESC
 LIMIT 10;
 
@@ -207,9 +200,8 @@ SELECT
         ORDER BY COUNT(*) DESC
     ) AS ownership_rank
 FROM public.vehicle_registry AS v
-    JOIN public.lookup_fuel AS f ON v.sug_delek_nm = f.sug_delek_nm
 WHERE
-    f.fuel_en = 'Electric'
+    v.fuel_en = 'Electric'
 GROUP BY
     v.ownership_en
 ORDER BY electric_vehicles DESC;
@@ -327,7 +319,7 @@ ORDER BY
 -- Show brands with at least 100 vehicles. This is a simple size filter.
 -- Count vehicles, not sales. Group the whole brand, not each production country.
 SELECT
-    COALESCE(v.maker_en, 'Unknown') AS maker_en,
+    v.maker_en,
     COUNT(*) AS total_vehicles,
     COUNT(*) FILTER (
         WHERE
@@ -393,3 +385,27 @@ ORDER BY
     subdistrict_en,
     electric_vehicles DESC,
     ownership_en;
+
+
+
+-- Query 15 (Question 2): EV share by maker and country of production.
+-- Shows which maker-country combinations are most common among EVs.
+-- Country means where the car was made.
+SELECT
+    v.maker_en,
+    v.production_country_en,
+    COUNT(*) AS electric_vehicles,
+    ROUND(
+        100.0 * COUNT(*) / SUM(COUNT(*)) OVER (),
+        2
+    ) AS market_share_pct
+FROM public.vehicle_registry AS v
+WHERE
+    v.fuel_en = 'Electric'
+GROUP BY
+    1,
+    2
+ORDER BY
+    electric_vehicles DESC,
+    maker_en,
+    production_country_en;
