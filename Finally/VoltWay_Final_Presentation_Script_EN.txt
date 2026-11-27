@@ -1,0 +1,280 @@
+VOLTWAY — FINAL PRESENTATION SCRIPT WITH TIMING
+English | 10-minute presentation + 5-minute Q&A | 27 November 2026
+Target: 10 minutes + 5 minutes for questions.
+About 115–125 words per minute, including short pauses and a dashboard demo. Timing is a rehearsal target, not a guarantee.
+The order follows the existing deck: money is slide 7 and the method is slide 8.
+
+1. RECOMMENDATION | 0:00–0:55 | 55 seconds
+
+We recommend studying Tel Aviv and Central first, while keeping Jerusalem and busy road corridors on the shortlist.
+
+The second dashboard shows one possible plan for 50 sites: 28 in Central, 18 in Tel Aviv and four in Jerusalem. This is a proposal to test. Our data does not prove that this is the best allocation.
+
+The Excel model proposes starting with ten pilot sites: five in Tel Aviv and five in Central. We would measure daily sessions and update costs before committing to the wider plan.
+
+Our decision has three steps: select areas, check real site demand, and update the financial model. Then decide where to build.
+
+2. TREND AND VEHICLE TYPES | 0:55–2:10 | 75 seconds
+
+[Show Power BI page 1: EV Curve & Market Leaders. Start with all filters cleared.]
+
+First, separate new registrations from the running total. The total can rise even when fewer vehicles are added each quarter.
+
+In our sample, fully electric registrations fell from about 22,000 in 2025 Q3 to about 10,800 in 2026 Q3, a fall of about 51 percent. The dashboard line shows their share: 25.1 percent in 2024 Q1 and 13.3 percent in 2026 Q3.
+
+Now look at the vehicle-type chart. In 2026 Q3, ordinary hybrids account for 35.7 percent and plug-in hybrids for 26.5 percent. Together, that is 62.2 percent.
+
+We must keep these groups separate when considering charging. Ordinary hybrids do not plug in. Plug-in hybrid sales alone do not establish demand for our DC sites.
+
+The trend uses full quarters through 2026 Q3. Our registry sample covers vehicles made in 2024–2026, rather than the full national fleet.
+
+3. BRANDS, OWNERS AND POSSIBLE PARTNERS | 2:10–3:20 | 70 seconds
+
+[Stay on Power BI page 1. Point to the brand chart and owner matrix.]
+
+BYD, Tesla and Xpeng together account for about 40 percent of fully electric vehicles in our sample. About 84 percent were made in China. This means production country, not brand nationality.
+
+About 74 percent of fully electric vehicles have private owners. The owner matrix answers a different question: what share of each owner's vehicles is fully electric? Here the share is about 24.8 percent for private owners and 9.1 percent for leasing.
+
+These percentages have different denominators. They help us compare customer groups, but do not show who has home charging or who will visit our sites.
+
+The brand chart gives us possible partners to investigate. Before choosing one, we need information about customers, charging needs, service and commercial terms.
+
+[The current PBIX has a total brand chart, not a quarterly brand-leader chart. Do not point to a quarterly chart here.]
+
+4. DISTRICTS AND THE ILLUSTRATIVE ROLLOUT | 3:20–4:35 | 75 seconds
+
+[Switch to Power BI page 2: District Gaps & 50 Sites.]
+
+Central and Tel Aviv together account for about 54 percent of the EVs recorded in the seven districts. Their size supports studying these areas first.
+
+Tel Aviv has about 304 EVs per fast point, Central about 239, and Jerusalem about 174.
+
+The comparison chart shows what happens if we add four points at each proposed site and keep EV counts fixed. Tel Aviv falls from about 304 to 201 EVs per point. Central falls from about 239 to 190. Jerusalem falls from about 174 to 148.
+
+These are changes in a ratio. We have not measured a reduction in peak demand or queues. Vehicle and charging data also have different dates.
+
+[Allow about 10 seconds to select one district, point to the ratio comparison, and clear the filter. Check the interaction before presenting.]
+
+5. TRAFFIC: WHY LOOK BEYOND HOME DISTRICTS? | 4:35–5:15 | 40 seconds
+
+[Return to the road-traffic slide. Traffic is not a visual in the current two-page PBIX.]
+
+Drivers may charge away from their home district, so traffic can help us choose corridors to study.
+
+We checked a CBS table covering 35 selected road sections. One section of Road 431 has about 164,000 vehicle passes per day in 2024.
+
+These counts cover all vehicle types. The same car may pass several sections. The figures help us identify roads to investigate, but do not predict charging customers at an individual site.
+
+6. WHAT WE MUST CHECK AT EACH SITE | 5:15–5:50 | 35 seconds
+
+Before choosing an address, we need to know how many electric cars pass or stop there, how long drivers stay, and whether they can charge at home or work.
+
+We also need actual sessions, energy sold, busy hours and queues at nearby chargers. Price, reliability and access may affect demand.
+
+Finally, we must check parking and the electricity connection. These checks turn a district shortlist into evidence about a specific site.
+
+7. MONEY: ONE SITE AND THE 50-SITE SCENARIO | 5:50–7:50 | 120 seconds
+
+[Use the money slide, then the scenario chart on Power BI page 2.]
+
+Our example site has four DC chargers and costs 680,000 shekels to start. Low, Base and High assume 12, 24 and 40 daily sessions for the whole site.
+
+At full demand, in a 30-day month, operating cash is about minus 800 shekels in Low, plus 15,000 in Base and plus 36,000 in High.
+
+About 13 sessions a day cover operating costs. About 22 meet a five-year simple payback target at full demand. This second calculation excludes the slow start.
+
+The monthly model includes a slow start. Base pays back in month 51 and High in month 23. Low does not pay back within ten years.
+
+The dashboard also scales the model to 50 sites. Initial investment is 34 million shekels. After five years, cumulative cash after that investment is about minus 38.2 million in Low, plus 7.6 million in Base and plus 68.7 million in High.
+
+This scales the same site assumptions across all 50 sites. It does not model a separate demand level or a separate opening date for each site.
+
+That wide range supports testing demand with a pilot. Costs use a 2020 benchmark, so we need current quotes. The model also excludes tax and financing.
+
+8. HOW WE DID THE WORK | 7:50–8:20 | 30 seconds
+
+We used Python to clean the data and SQL to compare quarters, brands, owners and districts.
+
+A statistical test showed that the electric share differs across owner groups. It does not explain their charging habits.
+
+Excel connects demand assumptions to cash flow and payback. Power BI presents the main findings.
+
+Together, these tools help us move from raw records to a decision.
+
+9. HOW WE USED AI, AND WHAT COMES NEXT | 8:20–9:20 | 60 seconds
+
+We used AI to help build a first template for the financial model. We tried the template, checked its results and added what our project needed.
+
+The useful result is a model we can update when we have better information. We can change demand, costs and other inputs, then compare the cases again.
+
+With more data, AI could also help us build a model of electric vehicle traffic and possible charging demand. For that, we would need local traffic, the electric vehicle share, stop patterns and real charging use.
+
+We would check its predictions against observed data. Then it could help us identify areas where chargers may be needed. Today, this is a possible next step, not a result we have already proved.
+
+10. SOURCES AND FINAL MESSAGE | 9:20–10:00 | 40 seconds
+
+We started with the Ministry of Transport vehicle registry, model information and district EV counts.
+
+We added charging summaries, CBS population and road traffic data, plus historical cost and financial references. The full list is in the source appendix. These sources have different dates and purposes.
+
+Our recommendation is to investigate the priority areas, measure use in a pilot, and update the financial model. The 50-site dashboard is a scenario for discussion. Site evidence should guide the final investment decision.
+
+END OF TALK — 5 MINUTES FOR QUESTIONS
+
+SHORT ANSWERS TO PREPARE
+
+Why not build all 50 now?
+We can identify areas to study, but we cannot yet prove demand at individual sites.
+
+Are these districts short of chargers?
+We do not know. We need actual use, queues and information about home charging.
+
+Is the electric fleet shrinking?
+Our cumulative registration count is increasing. New fully electric registrations in recent quarters are weaker. Our sample cannot measure the full national fleet, including exits.
+
+Which brand should be our partner?
+We have a shortlist. Changing quarterly leaders and missing commercial information make a final choice premature.
+
+Why can the running total grow while the trend falls?
+We still add vehicles, but we may add fewer than before.
+
+Can AI already tell us where to build?
+Not from these data alone. A useful prediction needs more local data and checks against real observations.
+
+Why does payback take 51 months rather than the simple calculation on the slide?
+The monthly model includes lower demand during start-up.
+
+REHEARSAL AND SLIDE CHANGES
+
+Timing remains 10 minutes, including the dashboard demo. Rehearse aloud; these are target slots.
+
+Slide 1: label 28 Central / 18 Tel Aviv / 4 Jerusalem as an illustrative allocation. The 5 + 5 pilot is a proposed validation step.
+Slide 2: use the actual PBIX share line and vehicle-type chart. Quarterly counts and cumulative totals need a separate slide if shown; they are not visuals in this PBIX.
+Slide 3: use the total brand chart and owner matrix. The quarterly brand-leader chart is absent from this PBIX. Keep 74% of BEVs privately owned separate from 24.8% of private vehicles being BEV.
+Slide 4: compare current versus illustrative post-rollout EV / point. Do not describe the ratio as measured peak load or queues.
+Slide 5: road traffic stays on the separate presentation slide.
+Slide 7: explain both one-site payback and 50-site five-year cumulative cash after upfront investment. Label program results as identical-site scaling, not a phased rollout forecast.
+Slide 9: use the AI model-template example.
+Slide 10: retain the full source appendix and required attribution.
+The presentation, PBIX and Excel files have not been edited in this revision. Report structure was read from the PBIX definitions; rendering, DAX execution and filter interactions were not tested in Power BI.
+
+Everyone must speak. For three speakers, one possible split is slides 1–3 / 4–6 / 7–10. For two speakers, slides 1–5 / 6–10.
+
+SOURCE APPENDIX — NOT TO READ ALOUD
+
+This list records the sources and references present in the local project. It does not mean every linked page or model was downloaded or used directly in a calculation. Links are copied from the project; they were not newly checked online for this revision.
+
+A. COURSE DATA — DOWNLOADED BY THE COURSE ON 8 NOVEMBER 2026
+
+1. Israel Ministry of Transport and Road Safety: vehicle registry.
+https://data.gov.il/he/datasets/ministry_of_transport/private-and-commercial-vehicles
+Project file: data/vehicle_registry_2024_2026.csv.
+Course sample: 861,136 vehicles made in 2024–2026; VINs removed.
+
+2. Israel Ministry of Transport: WLTP model catalogue.
+https://data.gov.il/he/datasets/ministry_of_transport/degem-rechev-wltp
+Project file: data/wltp_models_2024_2026.csv.
+
+3. Israel Ministry of Transport: electric vehicles by district and ownership.
+https://data.gov.il/he/datasets/ministry_of_transport/rechavim_hashmalim
+Project file: data/ev_by_district.csv.
+Download date is not necessarily the date represented by every count.
+
+4. Course helper tables: six lookup files and columns_vehicle_registry_en.csv.
+Supplied with the course data pack. They provide labels and descriptions, not independent public datasets.
+
+Required attribution on the last slide:
+Source: Israel Ministry of Transport and Road Safety, vehicle registry and WLTP model data, data.gov.il (8 Nov 2026).
+
+B. ADDITIONAL DATA USED IN THE PROJECT
+
+5. Charging summaries: current_data/charging-cities.csv and current_data/charging-districts.csv.
+Named public dataset:
+https://data.gov.il/he/datasets/ministry_of_transport/agg_charge_stations
+Files label charging data as 13 November 2025; the district file labels separate private EV counts as 30 September 2026.
+Added to Git on 20 November 2026; this is not their data date.
+The exact original download links and full summary method are not recorded. The city summary labels population as CBS 2023 without an exact population source link.
+
+6. CBS Table 2.12: Localities and Population, by District, Sub-District and Population Group.
+Population date: 31 December 2025. Publication date recorded in the project: 8 October 2026.
+https://www.cbs.gov.il/he/publications/DocLib/2026/2.ShnatonPopulation/st02_12x.xlsx
+Used for the population-adjusted district analysis.
+
+7. CBS Transport Statistics Quarterly No. 1, 2026, Table 37, printed pages 58–59.
+https://www.cbs.gov.il/he/publications/DocLib/2026/rt0126/h_print.pdf#page=58
+Downloaded 21 November 2026. Local extract: current_data/traffic_cbs_2026q1_table37.pdf.
+Covers 35 selected sections, with last counts in 2023–2025. All vehicle types, not electric cars alone.
+
+C. COST AND FINANCIAL MODEL REFERENCES RECORDED IN EXCEL
+
+8. Samuel Neaman Institute: private electric transportation readiness guide for municipalities, second edition, 2020.
+Historical DC cost reference: printed pages 54–56.
+https://www.neaman.org.il/wp-content/uploads/2024/02/Private-electric-transportation-readiness-guide-for-municipalities-2nd-Edition_20200804094637.446.pdf
+Government-hosted copy:
+https://www.gov.il/BlobFolder/reports/electric_vehicle_2/he/electric_vehicle_2.pdf
+The model uses historical benchmark costs, not current construction quotes.
+
+9. EVI-FAST: financial analysis model reference.
+https://www.nlr.gov/transportation/evi-fast
+User manual:
+https://www.nrel.gov/docs/libraries/transportation/evi-fast-user-manual-draft-nov-2020.pdf?sfvrsn=49592e73_1
+
+10. Atlas Public Policy: EV Charging Financial Analysis Tool.
+https://atlaspolicy.com/ev-charging-financial-analysis-tool/
+Excel example, version 2.30:
+https://atlaspolicy.com/wp-content/uploads/2026/10/ev_charging_financial_analysis_tool_v2.30.xlsm
+User guide:
+https://atlaspolicy.com/wp-content/uploads/2017/05/EV-Charging-Financial-Analysis-Tool-User-Guide.pdf
+
+D. BACKGROUND RESEARCH LINKS RECORDED IN EXCEL
+
+11. PwC Strategy&, EV charging market outlook, labelled 2026 in the workbook.
+https://www.strategyand.pwc.com/n1/en/ev-charging-market-outlook-2026.html
+
+12. Alan Jenn, Transportation, labelled 2025 in the workbook.
+https://link.springer.com/article/10.1007/s11116-025-10651-4
+
+13. Bernal et al., Sustainability, labelled 2024 in the workbook.
+https://www.mdpi.com/2071-1050/16/15/6701
+
+14. IEA, Policy brief on public charging infrastructure, labelled 2022 in the workbook.
+https://www.iea.org/reports/policy-brief-on-public-charging-infrastructure/executive-summary
+
+These are background references. Their presence in Excel is not evidence that they predict demand or payback at our Israeli sites.
+
+E. ADDITIONAL MATERIAL DOWNLOADED OR CHECKED, NOT USED IN THE MAIN CALCULATIONS
+
+15. Official charging station records checked on 21 November 2026.
+https://data.gov.il/he/datasets/ministry_of_transport/agg_charge_stations/528482f2-d410-4d62-8b17-566ab23a1c52
+API:
+https://data.gov.il/api/3/action/datastore_search?resource_id=528482f2-d410-4d62-8b17-566ab23a1c52&limit=10000
+The project checked 2,261 records and matching national point totals. This did not replace the summary files or validate every district count.
+
+16. An older CBS population table for 2024 was checked. The project uses the 2025 table in item 6 for A4. An exact link for the older table is not recorded in the README; no link has been invented here.
+
+INTERNAL TRACEABILITY
+
+Requirements: Final_Project_Brief.pdf and 08_Energy_Israel_EV_Transition_Client_Brief.pdf.
+Source notes: data/SOURCE.txt and README.md.
+Preparation and tests: VoltWay_Cleaning.ipynb, clean_data/, stat_tests/.
+Business queries: lookup.sql, including Q5 for quarterly brand rankings.
+Financial model: Finally/VoltWay_Impact_Model.xlsx.
+Financial figures and slide comparison: outputs/VoltWay_Presentation_Pack_2026-11-25/.
+AI workflow description: your clarification in this conversation.
+
+
+
+ADDITIONAL Q&A FOR THE CURRENT DASHBOARD
+
+Does the plan cut peak load by 21–34%?
+The calculation reduces EVs per fast charging point by about 34% in Tel Aviv and 21% in Central, holding EV counts fixed. We have not modeled peak queues.
+
+Why 28 / 18 / 4?
+It is the team's illustrative allocation. Tel Aviv and Central rank highest on the all-EV ratio. Jerusalem ranks second on the private-EV ratio. These facts support investigation, not an optimal allocation.
+
+Does +7.6 million mean annual profit?
+No. It is modeled cumulative cash for 50 identical sites after five years, including subtraction of the initial investment, before tax and financing.
+
+Why can filters disagree with chart titles?
+Several titles contain fixed numbers. Clear filters before quoting those figures and verify dynamic-title or interaction behavior in Power BI before presenting.
