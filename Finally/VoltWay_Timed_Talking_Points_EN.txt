@@ -1,0 +1,70 @@
+VOLTWAY — SHORT TALKING POINTS IN SIMPLE ENGLISH
+10-minute talk + 5-minute Q&A
+Matched to the existing 10-slide VoltWay presentation.
+
+These are speaking cues, not a full script. Use each time slot to explain the chart, point to the numbers and show the dashboard. Rehearse with a timer.
+
+SLIDE 1 | 0:00–0:50 | Recommendation | 50 seconds
+“We recommend a staged plan for the next 50 charging sites. Study Tel Aviv and Central first. Also check Jerusalem and busy roads. Measure real charging use before choosing the first sites to build.”
+Point to the recommendation. Keep one clear message: study, measure, then build in stages.
+
+SLIDE 2 | 0:50–2:00 | EV trend | 70 seconds
+“Here, EV means a fully electric vehicle. Our sample covers vehicles made in 2024–2026. In full quarters, the EV share falls from 25.1% in early 2024 to 13.3% in 2026 Q3. The trend is not a steady rise. Plug-in hybrids grow, but this does not show demand for fast charging.”
+Show the trend and point to the first and last full quarters. This is a limited sample, not the whole Israeli fleet.
+
+SLIDE 3 | 2:00–2:55 | Brands and owners | 55 seconds
+“BYD, Tesla and Xpeng lead our EV sample. Together, they make up about 40%. About 74% have private owners, and 84% were made in China. These results help us choose possible partners. They do not show where drivers will charge.”
+Point to the three leading brands. Country means where the car was made. This slide uses the whole sample, including partial 2026 Q4.
+
+SLIDE 4 | 2:55–4:00 | Where to study | 65 seconds
+“Tel Aviv has about 304 EVs per fast charging point. Central has about 239, and Jerusalem has about 174. Tel Aviv and Central are our first areas to study. A high ratio does not prove a shortage or busy chargers.”
+Use about 25 seconds for a live Power BI demo: select a district, show its EV and charging figures, then reset the filter. Explain that the source dates differ.
+
+SLIDE 5 | 4:00–5:00 | Road traffic | 60 seconds
+“Drivers may charge away from home, so road traffic also matters. We checked 35 selected road sections. Road 431 has about 164,000 daily vehicle passes in 2024. These counts include all vehicle types. They help us choose roads to study, but they do not predict charging stops.”
+Show the road examples. Do not add the flows: the same car can pass more than one section.
+
+SLIDE 6 | 5:00–6:00 | What we still need | 60 seconds
+“Our main gap is actual charging use. We do not know the number of sessions, busy hours or queues. Drivers may charge at home or work. Price and access may also matter. We need to measure use before we invest.”
+Point to the checks on the slide. These are possible explanations, not findings.
+
+SLIDE 7 | 6:00–7:30 | Money | 90 seconds
+“Our example site costs 680,000 shekels to start. Low, Base and High cases use 12, 24 and 40 sessions per day. In the Base case, payback takes 51 months, including a slow start. The Low case does not pay back within ten years. These are model results, not promised returns. Costs use a 2020 guide, so we need new quotes.”
+Compare the three cases. About 13 daily sessions cover running costs. About 22 meet a five-year simple payback target at full demand; that target excludes the slow start. Use 51 months for the Base case with start-up included.
+
+SLIDE 8 | 7:30–8:00 | How we did it | 30 seconds
+“Python cleaned the data. SQL answered the business questions. Excel tested the money. Power BI shows the results. A statistical test found different EV shares across owner groups, with p below 0.001. It does not tell us how often people charge.”
+Keep this to one pipeline slide and 30 seconds.
+
+SLIDE 9 | 8:00–9:20 | AI and next step | 80 seconds
+“For these notes, we asked AI to check the talk requirements and write short points in simple English with timing. It produced a timed outline. We checked it against the brief, the slides and the project results. We kept the 51-month payback and the limits on what the data can show.”
+“Next, check possible sites, measure charging use and get current cost quotes. Update the model with these numbers. Then choose the first sites for a staged build.”
+Show the request, output and checks as three short items on the AI slide. This example describes the preparation of these notes.
+
+SLIDE 10 | 9:20–10:00 | Sources and close | 40 seconds
+“Our main source is the Ministry of Transport course snapshot from 8 November 2026. We also used charging and road traffic data. The dates differ, and actual charging use is missing. Our recommendation is to study Tel Aviv and Central first, measure use, and build in stages. Thank you.”
+Keep the exact source line visible on the last slide:
+Source: Israel Ministry of Transport and Road Safety, vehicle registry and WLTP model data, data.gov.il (8 Nov 2026).
+
+Q&A | 10:00–15:00 | Not part of the 10-minute talk
+Why not build all 50 now? — We have no measured demand for individual sites.
+Are existing chargers unused? — We do not know. We need session data.
+Does the EV ratio prove a shortage? — No. It helps us choose areas to study.
+Are the construction costs current? — No. They use a 2020 guide and example inputs.
+Why 51 months? — The Base case includes lower demand during start-up.
+Why can dashboard totals differ? — Check the quarter filter: slide 3 includes partial 2026 Q4, while the trend uses full quarters.
+
+DELIVERY REMINDERS
+Everyone on the team must speak. Assign the blocks before rehearsal.
+For three speakers, one possible split is slides 1–3 / 4–6 / 7–10.
+For two speakers, one possible split is slides 1–5 / 6–10.
+Use one main insight per slide. Show a live demo. Keep the pipeline to 30 seconds.
+The times are targets, including chart explanations and the demo; reading only the quoted text will be shorter than ten minutes.
+
+CHECKED AGAINST LOCAL PROJECT FILES
+Final_Project_Brief.pdf, pages 1 and 3: duration, speaking roles and talk structure.
+08_Energy_Israel_EV_Transition_Client_Brief.pdf: the client's three questions and attribution.
+outputs/VoltWay_Presentation_Pack_2026-11-25/VoltWay_Presentation.pdf: slide order and displayed figures.
+outputs/VoltWay_Presentation_Pack_2026-11-25/VoltWay_Conclusions.txt: figures and limitations.
+README.md: 26 November model verification and caveats.
+The deck itself has not been changed. Update the AI slide to match the example above if using these notes.
